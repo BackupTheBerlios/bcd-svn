@@ -1,0 +1,22 @@
+# A .bcdrc example
+# Copy to your home directory under the name .bcdrc (or _bcdrc on windows) and
+# edit to fit your settings
+
+# The [config] section can be omitted
+
+# =====================================================
+# Copyright (c) Miki Tebeka <miki.tebeka@zoran.com> 
+# This file is under the GNU Public License (GPL), see
+# http://www.gnu.org/copyleft/gpl.html for more details
+# =====================================================
+
+# Miki Tebeka <miki.tebeka@zoran.com>
+# $Id: bcdrc_example 929 2004-10-04 08:03:04Z mikit $
+
+[config]
+editor = /bin/gvim
+
+[aliases]
+home = /home/duffy
+work = /home/duffy/work
+project = /home/duffy/work/hello-world
