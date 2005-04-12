@@ -1,6 +1,6 @@
-========================
-"bcd" version 0.2 README
-========================
+==========================
+"bcd" version 0.2.0 README
+==========================
 :Author: Miki Tebeka <miki.tebeka@gmail.com>
 :Data: $Date$
 
