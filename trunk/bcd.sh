@@ -1,4 +1,5 @@
 # bash utility functions for bcd
+# Source this in your .bashrc
 
 # =====================================================
 # Copyright (c) Miki Tebeka <miki.tebeka@zoran.com> 
@@ -8,6 +9,7 @@
 
 # $Id: bcd.sh 903 2004-09-07 14:59:41Z mikit $
 
+# BCD function, call the bcd utility and change directory
 bcd()
 {
     dir=`bcd.py $@`
@@ -18,4 +20,9 @@ bcd()
     fi
 }
 
+# Also "Jump To"
+alias jt=bcd
+
+# Set completion
 complete -C "bcd.py -c" bcd
+complete -C "bcd.py -c" jt
