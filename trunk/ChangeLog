@@ -1,0 +1,8 @@
+Version 0.2.0 [2005/04/12]
+	* Added environment variables expansion
+	* Change email to gmail
+	* Added "jt" alias
+	* Versioning changed to MAJOR.MINOR.PATCH
+
+Version 0.1 [2005/01/02]
+	* First public revision
