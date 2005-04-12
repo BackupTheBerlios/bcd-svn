@@ -12,7 +12,7 @@ __author__ = "Miki Tebeka <miki.tebeka@zoran.com>"
 
 # Imports
 from user import home
-from os.path import join, isfile
+from os.path import join, isfile, expandvars
 from os import environ, system
 from sys import platform
 from ConfigParser import ConfigParser, Error as ConfigParserError
@@ -104,7 +104,7 @@ def print_path(path):
 if args:
     for alias, path in ALIASES:
         if alias == args[0]:
-            print_path(path)
+            print_path(expandvars(path))
             raise SystemExit
 
 # If were here either we didn't find the given alias or no alias was given, so
