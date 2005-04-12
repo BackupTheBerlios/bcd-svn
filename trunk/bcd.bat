@@ -3,12 +3,12 @@
 rem Batch file to call bcd.py
 
 rem =====================================================
-rem Copyright (c) Miki Tebeka <miki.tebeka@zoran.com> 
+rem Copyright (c) Miki Tebeka <miki.tebeka@gmail.com> 
 rem This file is under the GNU Public License (GPL), see
 rem http://www.gnu.org/copyleft/gpl.html for more details
 rem =====================================================
 
-rem Miki Tebeka <miki.tebeka@zoran.com>
+rem Miki Tebeka <miki.tebeka@gmail.com>
 rem $Id: bcd.py 898 2004-08-31 11:49:52Z mikit $
 
 if "%1" == "-h" goto HELP

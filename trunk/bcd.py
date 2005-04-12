@@ -2,12 +2,12 @@
 '''Tkinter replacement to cdargs utility'''
 
 # =====================================================
-# Copyright (c) Miki Tebeka <miki.tebeka@zoran.com> 
+# Copyright (c) Miki Tebeka <miki.tebeka@gmail.com> 
 # This file is under the GNU Public License (GPL), see
 # http://www.gnu.org/copyleft/gpl.html for more details
 # =====================================================
 
-__author__ = "Miki Tebeka <miki.tebeka@zoran.com>"
+__author__ = "Miki Tebeka <miki.tebeka@gmail.com>"
 # $Id: bcd.py 935 2004-10-11 09:02:39Z mikit $
 
 # Imports
