@@ -8,7 +8,7 @@
 # =====================================================
 
 __author__ = "Miki Tebeka <miki.tebeka@gmail.com>"
-# $Id: bcd.py 935 2004-10-11 09:02:39Z mikit $
+# $Id$
 
 # Imports
 from user import home
@@ -94,6 +94,7 @@ if opts.complete:
     raise SystemExit
 
 def print_path(path):
+    path = expandvars(path)
     if opts.windows:
         print "@echo off"
         print "cd /d %s" % path
@@ -104,7 +105,7 @@ def print_path(path):
 if args:
     for alias, path in ALIASES:
         if alias == args[0]:
-            print_path(expandvars(path))
+            print_path(path)
             raise SystemExit
 
 # If were here either we didn't find the given alias or no alias was given, so
