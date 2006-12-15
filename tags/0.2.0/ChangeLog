@@ -1,0 +1,10 @@
+Version 0.2.0 [2005/04/12]
+	* Font and color configuration
+	* A lot of code shuffle
+	* Added environment variables expansion
+	* Change email to gmail
+	* Added "jt" alias
+	* Versioning changed to MAJOR.MINOR.PATCH
+
+Version 0.1 [2005/01/02]
+	* First public revision
