@@ -31,8 +31,15 @@ bash).
 
 Configuration File
 ==================
-The configuration file contains one alias and path per line.
-Lines starting with '#' are ignored.
+The configuration file has a ConfigParser syntax. It is composed of two parts:
+
+[options]
+    Configures the GUI and other settings
+
+[aliases]
+    "alias path" lines
+
+See the bcdrc_example for more details
 
 User Interface
 ==============

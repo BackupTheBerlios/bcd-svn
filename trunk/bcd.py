@@ -8,7 +8,6 @@
 # =====================================================
 
 __author__ = "Miki Tebeka <miki.tebeka@gmail.com>"
-# $Id$
 
 # Imports
 from user import home
@@ -16,33 +15,23 @@ from os.path import join, isfile, expandvars
 from os import environ, system
 from sys import platform
 from ConfigParser import ConfigParser, Error as ConfigParserError
-from optparse import OptionParser
-
-# Command line parsing
-p = OptionParser("usage: %prog [options] [ALIAS]")
-p.add_option("-c", help="compelte alias", dest="complete", default=0,
-         action="store_true")
-p.add_option("-w", help="output windows batch", dest="windows", default=0,
-        action="store_true")
-
-opts, args = p.parse_args()
-if (not opts.complete) and (len(args) not in (0, 1)):
-    p.error("wrong number of arguments") # Will exit
-
-# Check for rc file
-if "BCDRC" in environ:
-    rcfile = environ["BCDRC"]
-else:
-    if platform == "win32":
-        prefix = "_"
-    else:
-        prefix = "."
-    rcfile = join(home, prefix + "bcdrc")
-if not isfile(rcfile):
-    raise SystemExit("can't find initialization file %s" % rcfile)
+from Tkinter import *
+from tkMessageBox import showerror
 
 CONFIG = {}
 ALIASES = []
+RCFILE = ""
+
+def rc_filename():
+    # Check for rc file
+    if "BCDRC" in environ:
+        return environ["BCDRC"]
+    else:
+        if platform == "win32":
+            prefix = "_"
+        else:
+            prefix = "."
+        return join(home, prefix + "bcdrc")
 
 def default_editor():
     '''Try to find default editor'''
@@ -57,62 +46,39 @@ def default_editor():
 
 def load_rc():
     '''Load rc file'''
-    global CONFIG, ALIASES
 
     cp = ConfigParser()
-    try:
-        cp.readfp(open(rcfile))
-    except (IOError, ConfigParserError), e:
-        raise SystemExit("bcd: %s: error: %s" % (rcfile, e))
+    cp.readfp(open(RCFILE))
     cfg = "config"
     if cp.has_section(cfg):
         for opt in cp.options(cfg):
-            CONFIG[opt] = cp.get(cfg, opt)
+            value = cp.get(cfg, opt)
+            if opt == "font_size":
+                value = int(value)
+            CONFIG[opt] = value
 
     # Get editor from env
     if "editor" not in CONFIG:
         CONFIG["editor"] = default_editor()
 
     alias = "aliases"
-    ALIASES = []
+    del ALIASES[:]
     if cp.has_section(alias):
         for opt in cp.options(alias):
             ALIASES.append((opt, cp.get(alias, opt)))
 
-# Initial load of rc file
-load_rc()
-
-# Print all aliases starting with argument
-if opts.complete:
-    if args:
-        prefix = args[1]
-    else:
-        prefix = "" # string.startswith("") is always true
+def find_path(name):
     for alias, path in ALIASES:
-        if alias.startswith(prefix):
-            print alias
-    raise SystemExit
+        if alias == name:
+            return path
 
 def print_path(path):
     path = expandvars(path)
-    if opts.windows:
+    if platform == "win32":
         print "@echo off"
         print "cd /d %s" % path
     else:
         print path
-
-# Try to find given alias
-if args:
-    for alias, path in ALIASES:
-        if alias == args[0]:
-            print_path(path)
-            raise SystemExit
-
-# If were here either we didn't find the given alias or no alias was given, so
-# fire up the GUI
-
-from Tkinter import *
-from tkMessageBox import showerror
 
 def set_selected(lb, curr):
     '''Set selected item to "curr"'''
@@ -150,9 +116,9 @@ def edit(e):
     except OSError:
         showerror("Editor Problem", "Error running editor")
         return
-    load(e.widget)
+    reload(e.widget)
 
-def load(lb, prefix=""):
+def reload(lb, prefix=""):
     '''Load rc file to control'''
 
     load_rc()
@@ -165,54 +131,105 @@ def load(lb, prefix=""):
     for alias, path in ALIASES:
         if alias.startswith(prefix):
             lb.insert(END, "[%-*s] %s" % (max_alias, alias, path))
-    set_selected(files, 0)
+    lb.pack(fill=BOTH, expand=1)
+    set_selected(lb, 0)
 
-# Window settings
-font = ("Courier New", 12)
-bg = "navy"
-fg = "gray"
+def launch_ui(args):
+    # Window settings
+    font = (CONFIG["font"], CONFIG["font_size"])
+    bg = CONFIG["background"]
+    fg = CONFIG["foreground"]
 
-root = Tk() # Main window
-root.title("BCD 0.1")
-# FIXME: Center on screen
-root.geometry("550x400+200+100")
-# FIXME: Better colors
-files = Listbox(root, font=font, bg=bg, fg=fg)
-if args:
-    prefix = args[0]
-else:
-    prefix = ""
-try:
-    load(files, prefix)
-except IOError:
-    raise SystemExit("can't open %s for reading" % rcfile)
+    root = Tk() # Main window
+    root.title("BCD 0.2.0")
 
-# Can't find prefix, load all
-if prefix and (files.size() == 0):
-    prefix = ""
-    load(files, "")
+    files = Listbox(root, font=font, bg=bg, fg=fg)
+    if args:
+        prefix = args[0]
+    else:
+        prefix = ""
+    reload(files, prefix)
 
-# Bind some keystrokes
-files.bind("<Escape>", lambda e: root.quit()) # ESC will quit
-files.bind("<Return>", lambda e: print_quit(e, root)) # Enter will select
-files.bind("e", edit) # "e" will edit
-files.bind("r", lambda e: load(files, "")) # "r" will reload all
+    # Can't find prefix, load all
+    if prefix and (files.size() == 0):
+        prefix = ""
+        reload(files, "")
 
-# vi like movement
-files.bind("k", lambda e: move(e, -1)) # "k" is up
-files.bind("j", lambda e: move(e, 1)) # "j" is down
-files.bind("q", lambda e: root.quit()) # "q" will quit
+    # Bind some keystrokes
+    files.bind("<Escape>", lambda e: root.quit()) # ESC will quit
+    files.bind("<Return>", lambda e: print_quit(e, root)) # Enter will select
+    files.bind("e", edit) # "e" will edit
+    files.bind("r", lambda e: load(files, "")) # "r" will reload all
 
-# Pack and show
-files.pack(fill=BOTH, expand=1)
+    # vi like movement
+    files.bind("k", lambda e: move(e, -1)) # "k" is up
+    files.bind("j", lambda e: move(e, 1)) # "j" is down
+    files.bind("q", lambda e: root.quit()) # "q" will quit
 
-# Help
-help = Label(root, font=font, bg=bg, fg=fg,
-        text="<UP>/k = up, <DOWN>/j = down, e = Edit, <ESC>/q = quit")
-help.pack(fill="both")
+    # Help
+    help = Label(root, font=font, bg=bg, fg=fg,
+            text="<UP>/k = up, <DOWN>/j = down, e = Edit, <ESC>/q = quit")
+    help.pack(fill="both")
 
-files.focus()
+    files.focus()
+
+    # Run GUI
+    root.mainloop()
+
+def main(argv = None):
+    global RCFILE
+
+    if argv is None:
+        import sys
+        argv = sys.argv
+
+    from optparse import OptionParser
+
+    # Command line parsing
+    p = OptionParser("usage: %prog [options] [ALIAS]")
+    p.add_option("-c", help="compelte alias", dest="complete", default=0,
+             action="store_true")
+
+    opts, args = p.parse_args()
+    if (not opts.complete) and (len(args) not in (0, 1)):
+        p.error("wrong number of arguments") # Will exit
+
+    RCFILE = rc_filename()
+
+    if not isfile(RCFILE):
+        raise SystemExit("can't find initialization file %s" % rcfile)
+
+    try:
+        # Initial load of rc file
+        load_rc()
+    except (IOError, ConfigParserError, ValueError), e:
+        raise SystemExit("bcd: %s: error: %s" % (rcfile, e))
 
 
-# Run GUI
-root.mainloop()
+    # Print all aliases starting with argument
+    if opts.complete:
+        if args:
+            prefix = args[1]
+        else:
+            prefix = "" # string.startswith("") is always true
+        for alias, path in ALIASES:
+            if alias.startswith(prefix):
+                print alias
+        raise SystemExit
+
+
+    # Try to find given alias
+    if args:
+        path = find_path(args[0])
+        if path:
+            print_path(path)
+            raise SystemExit
+
+    # Not found or no arguments, show GUI
+    try:
+        launch_ui(args)
+    except TclError, e:
+        raise SystemExit("bcd: error: %s" % e)
+
+if __name__ == "__main__":
+    main()

@@ -11,10 +11,14 @@
 # =====================================================
 
 # Miki Tebeka <miki.tebeka@gmail.com>
-# $Id: bcdrc_example 929 2004-10-04 08:03:04Z mikit $
+# $Id$
 
 [config]
-editor = /bin/gvim
+editor = /usr/bin/gvim
+font = Courier New
+font_size = 26
+background = navy
+foreground = gray
 
 [aliases]
 home = /home/duffy
