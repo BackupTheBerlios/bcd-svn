@@ -57,3 +57,7 @@ EDITOR, VISUAL are the name of the editor to invoke if not specified in the
 configuration file.
 
 On windows systems the editor default to notepad.
+
+Downloading etc
+===============
+See http://developer.berlios.de/projects/bcd/ 
