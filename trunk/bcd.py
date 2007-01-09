@@ -111,7 +111,7 @@ def edit(e):
                                "BCD_EDITOR environment variable")
         return
     try:
-        cmd = "%s %s > %s 2>&1" % (editor, rcfile, devnull)
+        cmd = "%s %s > %s 2>&1" % (editor, RCFILE, devnull)
         system(cmd)
     except OSError:
         showerror("Editor Problem", "Error running editor")
