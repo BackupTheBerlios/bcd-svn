@@ -35,10 +35,16 @@ DOCS = bcdrc_example \
 
 ifeq ($(OSTYPE),cygwin)
 	PYTHON = ${shell cygpath -au `cmd /c pyexe.py`}
-else
+endif
+
+ifeq ($(OSTYPE),win32)
 	PWD = ${shell cmd /c cd}
 	PATH := $(PWD)\bin;$(PATH)
 	PYTHON = $(shell cmd /c pyexe.py)
+endif
+
+ifeq ($(OSTYPE),linux-gnu)
+	python = ${shell python pyexe.py}
 endif
 
 all:

@@ -1,3 +1,6 @@
+Version 0.4.0 [2007/05/11]
+	* Removed Tk
+
 Version 0.3.0 [2007/01/09]
 	* Code rewrite
 	* When user hit ESC, stay in current directory

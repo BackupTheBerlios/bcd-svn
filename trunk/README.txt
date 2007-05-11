@@ -1,5 +1,5 @@
 ==========================
-"bcd" version 0.3.0 README
+"bcd" version 0.4.0 README
 ==========================
 :Author: Miki Tebeka <miki.tebeka@gmail.com>
 :Data: $Date$
@@ -23,8 +23,7 @@ Unix users will want to add the line "source /path/to/bcd/.bcd.sh" to their
 Running
 =======
 Just run "bcd" [alias]. If there is the alias is matched exactly you'll change
-directory. Otherwise the bcd window will open and after selecting the right
-path you will cd to there.
+directory. Otherwise all the aliases will be printed to screen.
 
 On Unix systems hitting "TAB" after bcd will complete all aliases (at least on
 bash).
@@ -41,22 +40,9 @@ The configuration file has a ConfigParser syntax. It is composed of two parts:
 
 See the bcdrc_example for more details
 
-User Interface
-==============
-Up arrow/"k" will move up the directory list.
-Down arrow/"j" will move down the directory list.
-ESC/"q" will quit.
-"e" will invoke the editor on the configuration file.
-ENTER will select the current directory.
-"r" will reload the configuration file.
-
 Environment Variables
 =====================
 BCDRC is the location of the configuration file (otherwise it's $HOME/.bcd).
-EDITOR, VISUAL are the name of the editor to invoke if not specified in the
-configuration file.
-
-On windows systems the editor default to notepad.
 
 Downloading etc
 ===============
