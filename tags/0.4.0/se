@@ -1,0 +1,5 @@
+# Set environmet for debuggin
+# internal tool only
+
+source bcd.sh
+export PATH="$PATH:$HOME/bcd"
