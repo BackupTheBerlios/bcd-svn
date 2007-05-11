@@ -1,5 +1,5 @@
 ==========================
-"bcd" version 0.4.0 README
+"bcd" version 0.4.1 README
 ==========================
 :Author: Miki Tebeka <miki.tebeka@gmail.com>
 :Data: $Date$

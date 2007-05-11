@@ -89,7 +89,7 @@ def main(argv = None):
 
     # Command line parsing
     p = OptionParser("usage: %prog [options] [ALIAS]", 
-        version="bcd 0.4.0")
+        version="bcd 0.4.1")
     p.add_option("-c", help="compelte alias", dest="complete", default=0,
              action="store_true")
 
@@ -131,7 +131,7 @@ def main(argv = None):
     # We print to stderr so it won't be caught but the wrapping function
     max_alias_length = max([len(a[0]) for a in ALIASES])
     padding = 5
-    for alias, path in ALIASES:
+    for alias, path in sorted(ALIASES):
         line = "-" * (max_alias_length + padding - len(alias))
         print >> stderr, "%s %s %s" % (alias, line, path)
 
