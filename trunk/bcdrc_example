@@ -2,8 +2,6 @@
 # Copy to your home directory under the name .bcdrc (or _bcdrc on windows) and
 # edit to fit your settings
 
-# The [config] section can be omitted
-
 # =====================================================
 # Copyright (c) Miki Tebeka <miki.tebeka@gmail.com> 
 # This file is under the GNU Public License (GPL), see
@@ -11,16 +9,7 @@
 # =====================================================
 
 # Miki Tebeka <miki.tebeka@gmail.com>
-# $Id$
 
-[config]
-editor = /usr/bin/gvim
-font = Courier New
-font_size = 26
-background = navy
-foreground = gray
-
-[aliases]
 home = /home/duffy
 work = /home/duffy/work
 project = /home/duffy/work/hello-world

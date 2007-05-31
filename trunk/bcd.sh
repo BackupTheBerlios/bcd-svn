@@ -12,13 +12,13 @@
 # BCD function, call the bcd utility and change directory
 bcd()
 {
-    dir=`bcd.py $@`
-    if [ -z "$dir" ]; then
+    output=`bcd.py $@`
+    if [ -z "$output" ]; then
         return;
-    elif [ -d "$dir" ]; then
-        cd "$dir"
+    elif [ -d "$output" ]; then
+        cd "$output"
     else
-        echo "$dir: no such directory"
+        echo "$output"
     fi
 }
 

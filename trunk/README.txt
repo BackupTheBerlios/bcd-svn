@@ -1,5 +1,5 @@
 ==========================
-"bcd" version 0.4.1 README
+"bcd" version 0.5.0 README
 ==========================
 :Author: Miki Tebeka <miki.tebeka@gmail.com>
 :Data: $Date$
@@ -30,13 +30,12 @@ bash).
 
 Configuration File
 ==================
-The configuration file has a ConfigParser syntax. It is composed of two parts:
+The configuration file has the following syntax:
 
-[options]
-    Configures the GUI and other settings
-
-[aliases]
-    "alias path" lines
+::
+    work = $HOME/work
+    download = $HOME/downloads
+    cool_project = /mnt/cool_project
 
 See the bcdrc_example for more details
 
@@ -47,3 +46,6 @@ BCDRC is the location of the configuration file (otherwise it's $HOME/.bcd).
 Downloading etc
 ===============
 See http://developer.berlios.de/projects/bcd/ 
+
+
+.. comment: vim:ft=rst spell
