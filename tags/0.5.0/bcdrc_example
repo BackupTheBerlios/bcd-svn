@@ -1,0 +1,15 @@
+# A .bcdrc example
+# Copy to your home directory under the name .bcdrc (or _bcdrc on windows) and
+# edit to fit your settings
+
+# =====================================================
+# Copyright (c) Miki Tebeka <miki.tebeka@gmail.com> 
+# This file is under the GNU Public License (GPL), see
+# http://www.gnu.org/copyleft/gpl.html for more details
+# =====================================================
+
+# Miki Tebeka <miki.tebeka@gmail.com>
+
+home = /home/duffy
+work = /home/duffy/work
+project = /home/duffy/work/hello-world

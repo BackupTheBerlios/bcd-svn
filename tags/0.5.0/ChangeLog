@@ -1,0 +1,25 @@
+Version 0.5.0 [2007/05/31]
+	* Simpler RC file format
+	* Code size reduction
+	* Version
+
+Version 0.4.1 [2007/05/11]
+	* Print alias list sorted
+
+Version 0.4.0 [2007/05/11]
+	* Removed Tk
+
+Version 0.3.0 [2007/01/09]
+	* Code rewrite
+	* When user hit ESC, stay in current directory
+
+Version 0.2.0 [2005/04/12]
+	* Font and color configuration
+	* A lot of code shuffle
+	* Added environment variables expansion
+	* Change email to gmail
+	* Added "jt" alias
+	* Versioning changed to MAJOR.MINOR.PATCH
+
+Version 0.1 [2005/01/02]
+	* First public revision
