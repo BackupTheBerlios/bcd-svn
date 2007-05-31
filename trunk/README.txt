@@ -33,6 +33,7 @@ Configuration File
 The configuration file has the following syntax:
 
 ::
+
     work = $HOME/work
     download = $HOME/downloads
     cool_project = /mnt/cool_project
