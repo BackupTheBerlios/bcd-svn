@@ -11,7 +11,7 @@ __author__ = "Miki Tebeka <miki.tebeka@gmail.com>"
 __version__ = "0.5.0"
 
 from user import home
-from os.path import join, isfile, expandvars
+from os.path import join, isfile, expandvars, isdir
 from os import environ, system
 from sys import platform, stderr
 from ConfigParser import ConfigParser, Error as ConfigParserError
@@ -50,6 +50,21 @@ def print_path(path):
     else:
         print path
 
+def check(aliases):
+    ok = 1
+    items = aliases.items()
+    items.sort()
+    for alias, path in items:
+        print "%s: %s" % (alias, path),
+        path = resolve(path)
+        if not isdir(path):
+            print "[ERROR]"
+            ok = 0
+        else:
+            print "[OK]"
+
+    return ok
+
 def main(argv = None):
 
     if argv is None:
@@ -59,14 +74,17 @@ def main(argv = None):
     from optparse import OptionParser
 
     # Command line parsing
-    p = OptionParser("usage: %prog [options] [ALIAS]", 
-        version="bcd " + __version__)
-    p.add_option("-c", help="compelte alias", dest="complete", default=0,
-             action="store_true")
+    parser = OptionParser("usage: %prog [options] [ALIAS]", 
+            version="bcd " + __version__)
+    parser.add_option("-c", help="compelte alias", dest="complete", default=0,
+            action="store_true")
+    parser.add_option("--check", help="check aliases", dest="check", default=0,
+            action="store_true")
 
-    opts, args = p.parse_args()
-    if (not opts.complete) and (len(args) not in (0, 1)):
-        p.error("wrong number of arguments") # Will exit
+    opts, args = parser.parse_args()
+    if (not opts.complete) and (not opts.check) and \
+        (len(args) not in (0, 1)):
+        parser.error("wrong number of arguments") # Will exit
 
     rcfile = rc_filename()
 
@@ -78,6 +96,12 @@ def main(argv = None):
         aliases = load_rc(rcfile)
     except (IOError, ConfigParserError, ValueError), e:
         raise SystemExit("bcd: %s: error: %s" % (rcfile, e))
+
+    if opts.check:
+        retval = 0
+        if not check(aliases):
+            retval = 1
+        raise SystemExit(retval)
 
     # Print all aliases starting with argument
     if opts.complete:
