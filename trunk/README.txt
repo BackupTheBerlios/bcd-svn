@@ -6,6 +6,14 @@
 
 .. contents::
 
+
+.. Note::
+    I no longer maintain BCD since I moved to linux and found
+    `bash-completion`_.
+
+    If you feel the project is useful and would like to take over, drop me_ a
+    line.
+
 What is "bcd" 
 =============
 "bcd" stand for "Better CD". It is a "cd" replacement in the spirit of "cdargs"
@@ -47,6 +55,10 @@ BCDRC is the location of the configuration file (otherwise it's $HOME/.bcd).
 Downloading etc
 ===============
 See http://developer.berlios.de/projects/bcd/ 
+
+
+.. _`bash-completion`: http://www.caliban.org/bash/
+.. _me: mailto:miki.tebeka@gmail.com
 
 
 .. comment: vim:ft=rst spell
