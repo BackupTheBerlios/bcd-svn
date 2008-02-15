@@ -56,6 +56,11 @@ Downloading etc
 ===============
 See http://developer.berlios.de/projects/bcd/ 
 
+ToDo
+====
+* Find someone to take over the project :)
+* Add path completion - `bcd project1/l<TAB>` will complete all
+  directories under /path/to/project1/l*
 
 .. _`bash-completion`: http://www.caliban.org/bash/
 .. _me: mailto:miki.tebeka@gmail.com
